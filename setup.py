@@ -8,9 +8,14 @@ setup(
     version='0.0.1',
     author='Roryou',
     author_email='luliang_penn@live.com',
-    url='',
-    description=u'use by myself',
-    packages=['lupin4'],
+    url='https://github.com/RoRyou/Lupin3',
+    description=u'Roryou',
+    # packages=[''],
     install_requires=[],
-    
+    # entry_points={
+    #     'console_scripts': [
+    #         'jujube=jujube_pill:jujube',
+    #         'pill=jujube_pill:pill'
+    #     ]
+    # }
 )
