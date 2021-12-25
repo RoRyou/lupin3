@@ -10,11 +10,17 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 def str2date(strword):
-    return datetime.datetime.strptime(strword, '%Y-%m-%d')
+    if type(strword)!=str:
+        print('must be input str type')
+    else :
+        return datetime.datetime.strptime(strword, '%Y-%m-%d')
 
 
 def date2str(dateword):
-    return datetime.datetime.strftime(dateword, '%Y-%m-%d')
+    if type(dateword)!=datetime:
+        print('must be input date type')
+    else :
+        return datetime.datetime.strftime(dateword, '%Y-%m-%d')
 
 
 def dateminus(startdate, daynum):
@@ -35,7 +41,7 @@ def showeveryday(startday, endday):
     startd = str2date(startday)
     endd = str2date(endday)
     if startd > endd:
-        print('开始日期大于结束日期')
+        print('startday must more than endday')
     else:
         daynum = (endd - startd).days
     outputdays = []
