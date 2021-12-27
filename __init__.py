@@ -1,7 +1,13 @@
 import pandas as pd
 import datetime
 import itertools
+
+pip install psycopg2-binary 
+
 import psycopg2
+
+pip install mysql-connector
+
 import mysql.connector
 import random
 import matplotlib.pyplot as plt
