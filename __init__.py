@@ -231,3 +231,15 @@ def multiplebar(n=2, total_width=0.5, size=5):
     # plt.legend(loc="upper left")
 
     plt.show()
+
+    
+def proba_to_score(prob):
+    pdo = -6
+    rate = 2
+    base_odds = 1/50
+    base_score = 60
+
+    factor = pdo / np.log(rate)
+    offset = base_score + factor * np.log(base_odds)
+    score = factor * (np.log(1 - prob) - np.log(prob)) + offset
+    return score
