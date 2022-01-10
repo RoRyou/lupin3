@@ -31,6 +31,14 @@ def date2str(dateword):  # only save date
     return str(datetime.datetime.strftime(dateword, '%Y-%m-%d'))
 
 
+def datestr(word):
+    if type(word) == datetime.datetime:
+        return datetime.datetime.strftime(word,'%Y-%m-%d')
+    elif type(word) == str:
+        return datetime.datetime.strptime(word, '%Y-%m-%d')
+
+
+
 def dateminus(startdate, daynum):
     if type(startdate) == str:
         return date2str(str2date(startdate) - datetime.timedelta(days=daynum))
