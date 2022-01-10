@@ -23,8 +23,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-def str2date(strword):
-    return datetime.datetime.strptime(strword, '%Y-%m-%d')
+
 
 
 def date2str(dateword):  # only save date
