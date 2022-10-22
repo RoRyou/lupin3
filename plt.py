@@ -58,3 +58,15 @@ def multiplebar(n=2, total_width=0.5, size=5):
     # plt.legend(loc="upper left")
 
     plt.show()
+
+
+def pieplt(sizes, labels=0):
+    explode = len(sizes) * [0]  # 突出显示，这里仅仅突出显示第二块（即'Hogs'）
+    explode[sizes.index(max(sizes))] = 0.1
+
+    if labels == 0:
+        labels = range(len(sizes))
+
+    plt.pie(sizes, explode=explode, labels=labels,  autopct='%1.1f%%', shadow=True, startangle=90)
+    plt.axis('equal')  # 显示为圆（避免比例压缩为椭圆）
+    plt.show()

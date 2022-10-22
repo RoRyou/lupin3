@@ -1,9 +1,9 @@
 import pandas as pd
 import datetime
 import itertools
-import psycopg2
+# import psycopg2
 import os
-import mysql.connector
+# import mysql.connector
 import random
 from IPython.core.interactiveshell import InteractiveShell
 
@@ -77,64 +77,64 @@ def cartesian(l1, l2):
     return df
 
 
-def postgreSqlconnect(host, port, user, password, database, sql):
-    conn_string = "host=" + host + " port=" + port + " dbname=" + database + " user=" + user + " password=" + password
-    gpconn = psycopg2.connect(conn_string)
-
-    curs = gpconn.cursor()
-
-    curs.execute(sql)
-
-    data = curs.fetchall()
-
-    gpconn.commit()
-
-    curs.close()
-    gpconn.close()
-    data = pd.DataFrame(data)
-
-    return data
-
-
-class MyConverter(mysql.connector.conversion.MySQLConverter):
-
-    def row_to_python(self, row, fields):
-        row = super(MyConverter, self).row_to_python(row, fields)
-
-        def to_unicode(col):
-            if type(col) == bytearray:
-                return col.decode('utf-8')
-            return col
-
-        return [to_unicode(col) for col in row]
-
-
-def mySqlconnect(host, port, user, password, database, sql, ret):
-    mysqlcon = mysql.connector.connect(
-        host=host,
-        port=port,
-        user=user,
-        passwd=password,
-        database=database, use_unicode=False, converter_class=MyConverter
-    )
-    mysqlcurs = mysqlcon.cursor(buffered=True)
-    # mysql
-
-    mysqlcurs.execute(sql)
-
-    if ret is True:
-
-        myresult = mysqlcurs.fetchall()  # fetchall() 获取所有记录
-        return myresult
-        mysqlcon.close()
-        mysqlcurs.close()
-
-    elif ret is False:
-
-        mysqlcon.commit()
-        mysqlcon.close()
-        mysqlcurs.close()
-
+# def postgreSqlconnect(host, port, user, password, database, sql):
+#     conn_string = "host=" + host + " port=" + port + " dbname=" + database + " user=" + user + " password=" + password
+#     gpconn = psycopg2.connect(conn_string)
+#
+#     curs = gpconn.cursor()
+#
+#     curs.execute(sql)
+#
+#     data = curs.fetchall()
+#
+#     gpconn.commit()
+#
+#     curs.close()
+#     gpconn.close()
+#     data = pd.DataFrame(data)
+#
+#     return data
+#
+#
+# class MyConverter(mysql.connector.conversion.MySQLConverter):
+#
+#     def row_to_python(self, row, fields):
+#         row = super(MyConverter, self).row_to_python(row, fields)
+#
+#         def to_unicode(col):
+#             if type(col) == bytearray:
+#                 return col.decode('utf-8')
+#             return col
+#
+#         return [to_unicode(col) for col in row]
+#
+#
+# def mySqlconnect(host, port, user, password, database, sql, ret):
+#     mysqlcon = mysql.connector.connect(
+#         host=host,
+#         port=port,
+#         user=user,
+#         passwd=password,
+#         database=database, use_unicode=False, converter_class=MyConverter
+#     )
+#     mysqlcurs = mysqlcon.cursor(buffered=True)
+#     # mysql
+#
+#     mysqlcurs.execute(sql)
+#
+#     if ret is True:
+#
+#         myresult = mysqlcurs.fetchall()  # fetchall() 获取所有记录
+#         return myresult
+#         mysqlcon.close()
+#         mysqlcurs.close()
+#
+#     elif ret is False:
+#
+#         mysqlcon.commit()
+#         mysqlcon.close()
+#         mysqlcurs.close()
+#
 
 def find_pd(word, pd):
     index_ = []
@@ -185,3 +185,14 @@ def chineseloto(N=1000):
         return nl[0:n]
 
     return top_n_scores(4, dict_)
+
+def list_inter(a,b):
+    return list(set(a).intersection(set(b)))
+
+def list_union(a,b):
+    return list(set(a).union(set(b)))
+
+def list_dif(a,b):
+    return list(set(b).difference(set(a)))
+
+
