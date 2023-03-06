@@ -1,28 +1,34 @@
 import pandas as pd
 import datetime
 import itertools
-# import psycopg2
+import psycopg2
 import os
-# import mysql.connector
+import mysql.connector
 import random
 from IPython.core.interactiveshell import InteractiveShell
 
 InteractiveShell.ast_node_interactivity = "all"
 
 
-def str2date(strword):
-    return datetime.datetime.strptime(strword, '%Y-%m-%d')
+def str2date(datestring):
+    try:
+        return datetime.datetime.strptime(datestring, '%Y-%m-%d %H:%M:%S')
+    except:
+        return datetime.datetime.strptime(datestring, '%Y-%m-%d')
 
 
-def date2str(dateword):  # only save date
-    return str(datetime.datetime.strftime(dateword, '%Y-%m-%d'))
+def date2str(datestring):  # only save date
+    return str(datetime.datetime.strftime(datestring, '%Y-%m-%d'))
 
 
-def datestr(word):
-    if type(word) == datetime.datetime:
-        return datetime.datetime.strftime(word, '%Y-%m-%d')
-    elif type(word) == str:
-        return datetime.datetime.strptime(word, '%Y-%m-%d')
+def datestrauto(datestring):
+    if type(datestring) == datetime.datetime:
+        return datetime.datetime.strftime(datestring, '%Y-%m-%d')
+    elif type(datestring) == str:
+        try:
+            return datetime.datetime.strptime(datestring, '%Y-%m-%d %H:%M:%S')
+        except:
+            return datetime.datetime.strptime(datestring, '%Y-%m-%d')
 
 
 def mkdir(path):
@@ -77,64 +83,64 @@ def cartesian(l1, l2):
     return df
 
 
-# def postgreSqlconnect(host, port, user, password, database, sql):
-#     conn_string = "host=" + host + " port=" + port + " dbname=" + database + " user=" + user + " password=" + password
-#     gpconn = psycopg2.connect(conn_string)
-#
-#     curs = gpconn.cursor()
-#
-#     curs.execute(sql)
-#
-#     data = curs.fetchall()
-#
-#     gpconn.commit()
-#
-#     curs.close()
-#     gpconn.close()
-#     data = pd.DataFrame(data)
-#
-#     return data
-#
-#
-# class MyConverter(mysql.connector.conversion.MySQLConverter):
-#
-#     def row_to_python(self, row, fields):
-#         row = super(MyConverter, self).row_to_python(row, fields)
-#
-#         def to_unicode(col):
-#             if type(col) == bytearray:
-#                 return col.decode('utf-8')
-#             return col
-#
-#         return [to_unicode(col) for col in row]
-#
-#
-# def mySqlconnect(host, port, user, password, database, sql, ret):
-#     mysqlcon = mysql.connector.connect(
-#         host=host,
-#         port=port,
-#         user=user,
-#         passwd=password,
-#         database=database, use_unicode=False, converter_class=MyConverter
-#     )
-#     mysqlcurs = mysqlcon.cursor(buffered=True)
-#     # mysql
-#
-#     mysqlcurs.execute(sql)
-#
-#     if ret is True:
-#
-#         myresult = mysqlcurs.fetchall()  # fetchall() 获取所有记录
-#         return myresult
-#         mysqlcon.close()
-#         mysqlcurs.close()
-#
-#     elif ret is False:
-#
-#         mysqlcon.commit()
-#         mysqlcon.close()
-#         mysqlcurs.close()
-#
+def postgreSqlconnect(host, port, user, password, database, sql):
+    conn_string = "host=" + host + " port=" + port + " dbname=" + database + " user=" + user + " password=" + password
+    gpconn = psycopg2.connect(conn_string)
+
+    curs = gpconn.cursor()
+
+    curs.execute(sql)
+
+    data = curs.fetchall()
+
+    gpconn.commit()
+
+    curs.close()
+    gpconn.close()
+    data = pd.DataFrame(data)
+
+    return data
+
+
+class MyConverter(mysql.connector.conversion.MySQLConverter):
+
+    def row_to_python(self, row, fields):
+        row = super(MyConverter, self).row_to_python(row, fields)
+
+        def to_unicode(col):
+            if type(col) == bytearray:
+                return col.decode('utf-8')
+            return col
+
+        return [to_unicode(col) for col in row]
+
+
+def mySqlconnect(host, port, user, password, database, sql, ret):
+    mysqlcon = mysql.connector.connect(
+        host=host,
+        port=port,
+        user=user,
+        passwd=password,
+        database=database, use_unicode=False, converter_class=MyConverter
+    )
+    mysqlcurs = mysqlcon.cursor(buffered=True)
+    # mysql
+
+    mysqlcurs.execute(sql)
+
+    if ret is True:
+
+        myresult = mysqlcurs.fetchall()  # fetchall() 获取所有记录
+        return myresult
+        mysqlcon.close()
+        mysqlcurs.close()
+
+    elif ret is False:
+
+        mysqlcon.commit()
+        mysqlcon.close()
+        mysqlcurs.close()
+
 
 def find_pd(word, pd):
     index_ = []
@@ -194,5 +200,3 @@ def list_union(a,b):
 
 def list_dif(a,b):
     return list(set(b).difference(set(a)))
-
-

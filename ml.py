@@ -8,9 +8,17 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
-from sklearn import svm
-from sklearn import linear_model
-from lightgbm import LGBMClassifier
+from sklearn import svm, linear_model
+import lupin3package.lupin3.autoinstall as autoinstall
+
+
+
+try:
+    from lightgbm import LGBMClassifier
+except ImportError:
+    print("gevent library not found - installing...")
+    autoinstall.install_package("lightgbm==3.3.5")
+
 
 
 class MachineLearningClassify:
@@ -88,8 +96,10 @@ class MachineLearningClassify:
         if report is True:
             labelsclass = list(set(y_test.tolist()))
             print("精确率与召回率为:\n", classification_report(y_test, y_predict, labels=labelsclass))
-        return roc_auc_score(y_test, y_predict)
-
+        try:
+            return roc_auc_score(y_test, y_predict)
+        except ValueError:
+            pass
 
     def easyauc_output(self, data, labelcol):
         ML = MachineLearningClassify()
@@ -104,4 +114,3 @@ class MachineLearningClassify:
         print('model_DecisionTree:', ML.auc(y_predict, y_test))
         y_predict, y_test = ML.model_LightGBM(X_train, X_test, y_train, y_test)
         print('model_LightGBM:', ML.auc(y_predict, y_test))
-
