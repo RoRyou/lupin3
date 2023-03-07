@@ -200,3 +200,8 @@ def list_union(a,b):
 
 def list_dif(a,b):
     return list(set(b).difference(set(a)))
+
+
+def swapPositions(list, pos1, pos2):
+    list[pos1], list[pos2] = list[pos2], list[pos1]
+    return list
