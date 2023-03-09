@@ -192,13 +192,16 @@ def chineseloto(N=1000):
 
     return top_n_scores(4, dict_)
 
-def list_inter(a,b):
+
+def list_inter(a, b):
     return list(set(a).intersection(set(b)))
 
-def list_union(a,b):
+
+def list_union(a, b):
     return list(set(a).union(set(b)))
 
-def list_dif(a,b):
+
+def list_dif(a, b):
     return list(set(b).difference(set(a)))
 
 

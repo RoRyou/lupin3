@@ -1,5 +1,3 @@
-
-
 def install_package(package, version="upgrade"):
     from sys import executable
     from subprocess import check_call

@@ -6,6 +6,3 @@ from .ml import  MachineLearningClassify
 
 
 from .autoinstall import install_package
-
-
-
