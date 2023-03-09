@@ -9,15 +9,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn import svm, linear_model
-import lupin3package.lupin3.autoinstall as autoinstall
+# import lupin3package.lupin3.autoinstall as autoinstall
 
-
-
-try:
-    from lightgbm import LGBMClassifier
-except ImportError:
-    print("gevent library not found - installing...")
-    autoinstall.install_package("lightgbm==3.3.5")
+# from lightgbm import LGBMClassifier
+#
+# try:
+# except ImportError:
+#     print("gevent library not found - installing...")
+#     autoinstall.install_package("lightgbm==3.3.5")
 
 
 
@@ -85,13 +84,13 @@ class MachineLearningClassify:
         Linear.fit(X_train, y_train)
         y_predict = Linear.predict(X_test)
         return y_predict, y_test
-
-    def model_LightGBM(self,X_train,X_test,y_train,y_test):
-        gbm = LGBMClassifier(num_leaves=31, learning_rate=0.005, n_estimators=20)
-        gbm.fit(X_train, y_train, eval_set=[(X_test, y_test)], early_stopping_rounds=3)
-        y_predict = gbm.predict(X_test,num_iteration=gbm.best_iteration_)
-        return y_predict,y_test
-
+    #
+    # def model_LightGBM(self,X_train,X_test,y_train,y_test):
+    #     gbm = LGBMClassifier(num_leaves=31, learning_rate=0.005, n_estimators=20)
+    #     gbm.fit(X_train, y_train, eval_set=[(X_test, y_test)], early_stopping_rounds=3)
+    #     y_predict = gbm.predict(X_test,num_iteration=gbm.best_iteration_)
+    #     return y_predict,y_test
+    #
     def auc(self, y_test, y_predict, report=False):
         if report is True:
             labelsclass = list(set(y_test.tolist()))
@@ -112,5 +111,5 @@ class MachineLearningClassify:
         print('model_RandomForest:', ML.auc(y_predict, y_test))
         y_predict, y_test = ML.model_DecisionTree(X_train, X_test, y_train, y_test)
         print('model_DecisionTree:', ML.auc(y_predict, y_test))
-        y_predict, y_test = ML.model_LightGBM(X_train, X_test, y_train, y_test)
-        print('model_LightGBM:', ML.auc(y_predict, y_test))
+        # y_predict, y_test = ML.model_LightGBM(X_train, X_test, y_train, y_test)
+        # print('model_LightGBM:', ML.auc(y_predict, y_test))

@@ -1,14 +1,16 @@
-import lupin3package.lupin3.autoinstall as autoinstall
+# import lupin3package.lupin3.autoinstall as autoinstall
+#
+# try:
+#
+#     from transformers import BertConfig
+#     from transformers import BertTokenizer, BertModel
+#
+# except ImportError:
+#     print("gevent library not found - installing...")
+#     autoinstall.install_package("transformers==4.23.1")
 
-try:
-
-    from transformers import BertConfig
-    from transformers import BertTokenizer, BertModel
-
-except ImportError:
-    print("gevent library not found - installing...")
-    autoinstall.install_package("transformers==4.23.1")
-
+from transformers import BertConfig
+from transformers import BertTokenizer, BertModel
 
 model_name = 'uer/sbert-base-chinese-nli'
 config = BertConfig.from_pretrained(model_name)
