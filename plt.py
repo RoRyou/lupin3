@@ -70,3 +70,38 @@ def pieplt(sizes, labels=0):
     plt.pie(sizes, explode=explode, labels=labels,  autopct='%1.1f%%', shadow=True, startangle=90)
     plt.axis('equal')  # 显示为圆（避免比例压缩为椭圆）
     plt.show()
+
+
+
+def plt3bar(l1,l2,l3,labels,xlabel = 'Scoresx',ylabel='Scores'):
+
+    x = np.arange(len(labels))  # the label locations
+    width = 0.25  # the width of the bars
+
+    r1 = np.arange(len(labels))
+    r2 = [x + width for x in r1]
+    r3 = [x + width for x in r2]
+
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(r1, l1, width, label='Men')
+    rects2 = ax.bar(r2, l2, width, label='Women')
+    rects3 = ax.bar(r3, l3, width, label='Womens')
+
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_ylabel(ylabel)
+    ax.set_title(xlabel)
+
+
+    ax.bar_label(rects1, padding=3)  # 更加简单好用的api
+    ax.bar_label(rects2, padding=3)
+    ax.bar_label(rects3, padding=3)
+
+
+    plt.xticks([r + width for r in range(len(l1))], labels)
+
+
+    fig.tight_layout()
+
+    plt.show()

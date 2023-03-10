@@ -71,7 +71,7 @@ class MachineLearningClassify:
         DT = DecisionTreeClassifier()
         DT.fit(X_train, y_train)
         y_predict = DT.predict(X_test)
-        return y_predict, y_test
+        return y_predict, y_    test
 
     def model_RandomForest(self, X_train, X_test, y_train, y_test):
         RF = RandomForestClassifier()
